@@ -7,6 +7,7 @@ import com.home.family.common.response.FamilyMemberDetailVO;
 import com.home.family.common.response.FamilyMemberScoreDetailVO;
 import com.home.family.service.FamilyMemberService;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,6 +34,12 @@ public class FamilyMemberController {
     @GetMapping(path = "score/detail")
     public ResultResponse<List<FamilyMemberScoreDetailVO>> getScoreDetail() {
         List<FamilyMemberScoreDetailVO> list = familyMemberService.getScoreDetail();
+        return ResultResponse.success(list);
+    }
+
+    @GetMapping(path = "score/detail/{userId}")
+    public ResultResponse<List<FamilyMemberScoreDetailVO>> getMemberScoreDetail(@PathVariable String userId) {
+        List<FamilyMemberScoreDetailVO> list = familyMemberService.getMemberScoreDetail(userId);
         return ResultResponse.success(list);
     }
 

@@ -40,10 +40,18 @@ public class FamilyMemberService {
 
     private static final Map<String, String> USERNAME_MAP = Maps.newHashMap();
 
-    public List<FamilyMemberScoreDetailVO> getScoreDetail() {
-        List<FamilyMemberScoreDetailVO> scoreDetailVOList = Lists.newArrayList();
-        List<FamilyMemberScoreDetail> scoreDetailList = familyMemberScoreDetailDAO.list();
+    public List<FamilyMemberScoreDetailVO> getMemberScoreDetail(String userId) {
+        List<FamilyMemberScoreDetail> scoreDetailList = familyMemberScoreDetailDAO.listByUserId(userId);
+        return wrapperFamilyMemberScoreDetailVO(scoreDetailList);
+    }
 
+    public List<FamilyMemberScoreDetailVO> getScoreDetail() {
+        List<FamilyMemberScoreDetail> scoreDetailList = familyMemberScoreDetailDAO.list();
+        return wrapperFamilyMemberScoreDetailVO(scoreDetailList);
+    }
+
+    private List<FamilyMemberScoreDetailVO> wrapperFamilyMemberScoreDetailVO(List<FamilyMemberScoreDetail> scoreDetailList) {
+        List<FamilyMemberScoreDetailVO> scoreDetailVOList = Lists.newArrayList();
         for (FamilyMemberScoreDetail detail : scoreDetailList) {
             FamilyMemberScoreDetailVO scoreDetailVO = new FamilyMemberScoreDetailVO();
             String userId = detail.getUserId();

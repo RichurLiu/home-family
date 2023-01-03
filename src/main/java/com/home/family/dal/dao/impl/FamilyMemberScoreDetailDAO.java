@@ -1,10 +1,13 @@
 package com.home.family.dal.dao.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.home.family.dal.entity.FamilyMemberScoreDetail;
 import com.home.family.dal.mapper.FamilyMemberScoreDetailMapper;
 import com.home.family.dal.dao.IFamilyMemberScoreDetailDAO;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -17,4 +20,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class FamilyMemberScoreDetailDAO extends ServiceImpl<FamilyMemberScoreDetailMapper, FamilyMemberScoreDetail> implements IFamilyMemberScoreDetailDAO {
 
+    @Override
+    public List<FamilyMemberScoreDetail> listByUserId(String userId){
+        LambdaQueryWrapper<FamilyMemberScoreDetail> wrapper = new LambdaQueryWrapper<>();
+        wrapper.eq(FamilyMemberScoreDetail::getUserId, userId);
+        return list(wrapper);
+    }
 }
